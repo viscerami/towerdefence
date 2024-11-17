@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+/*
 public class NewBehaviourScript : MonoBehaviour
 {
-    [HideInInspector]
     public GameObject[] waypoints;
     private int currentWaypoint = 0;
     private float lastWaypointSwitchTime;
@@ -15,8 +14,6 @@ public class NewBehaviourScript : MonoBehaviour
     {
         lastWaypointSwitchTime = Time.time;
     }
-
-  
     void Update()
     {
         Vector3 startPosition = waypoints[currentWaypoint].transform.position;
@@ -34,17 +31,17 @@ public class NewBehaviourScript : MonoBehaviour
                 // 3.a 
                 currentWaypoint++;
                 lastWaypointSwitchTime = Time.time;
-                // TODO: поворачиваться в направлении движения
+                // TODO: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             }
             else
             {
                 // 3.b 
                 Destroy(gameObject);
-
                 AudioSource audioSource = gameObject.GetComponent<AudioSource>();
                 AudioSource.PlayClipAtPoint(audioSource.clip, transform.position);
-                // TODO: вычитать здоровье
+                // TODO: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             }
         }
     }
 }
+*/

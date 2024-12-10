@@ -6,34 +6,52 @@ namespace Player
 {
     public class Road : MonoBehaviour
     {
-        [SerializeField] private GameObject[] waypoints; 
-        [SerializeField] private GameObject testEnemyPrefab; 
-        [SerializeField] private int enemiesPerWave = 5; 
-        [SerializeField] private float timeBetweenEnemies = 1f; 
-        [SerializeField] private float timeBetweenWaves = 5f;
-        [SerializeField] private int maxWaves = 3; 
+        [SerializeField] private GameObject[] waypointsGround;
+        [SerializeField] private GameObject[] waypointsFly;
+        [SerializeField] private GameObject groundEnemyPrefab; 
+        [SerializeField] private GameObject flyEnemyPrefab; 
+        [SerializeField] private int flyEnemiesPerWave;
+        [SerializeField] private int groundEnemiesPerWave; 
+        [SerializeField] private float timeBetweenEnemies; 
+        [SerializeField] private float timeBetweenWaves;
+        [SerializeField] private int maxWaves; 
 
         void Start()
         {
-            StartCoroutine(SpawnWaves()); 
+            StartCoroutine(SpawnGroundWaves()); 
+            StartCoroutine(SpawnFlyWaves()); 
         }
 
-        private IEnumerator SpawnWaves()
+        private IEnumerator SpawnGroundWaves()
         {
             for (int wave = 0; wave < maxWaves; wave++)
             {
-                for (int i = 0; i < enemiesPerWave; i++)
+                for (int i = 0; i < groundEnemiesPerWave; i++)
                 {
-                    SpawnEnemy(); 
+                    SpawnEnemy(groundEnemyPrefab,waypointsGround);
                     yield return new WaitForSeconds(timeBetweenEnemies); 
                 }
                 yield return new WaitForSeconds(timeBetweenWaves); 
             }
         }
-        private void SpawnEnemy()
+        private IEnumerator SpawnFlyWaves()
         {
-            GameObject enemy = Instantiate(testEnemyPrefab);
+            for (int wave = 0; wave < maxWaves; wave++)
+            {
+                for (int i = 0; i < flyEnemiesPerWave; i++)
+                {
+                    SpawnEnemy(flyEnemyPrefab,waypointsFly);
+                    yield return new WaitForSeconds(timeBetweenEnemies); 
+                }
+                yield return new WaitForSeconds(timeBetweenWaves); 
+            }
+        }
+        private void SpawnEnemy(GameObject pref, GameObject[] waypoints )
+        {
+            GameObject enemy = Instantiate(pref);
             enemy.GetComponent<MoveEnemy>().waypoints = waypoints;
         }
+
+
     }
 }

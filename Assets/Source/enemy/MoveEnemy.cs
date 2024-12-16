@@ -1,3 +1,4 @@
+using Player;
 using UnityEngine;
 
 namespace enemy
@@ -8,8 +9,11 @@ namespace enemy
         private int _currentWaypoint = 0;
         private float _lastWaypointSwitchTime;
         private const float _speed = 1.0f;
+        [SerializeField] private PlayerHealth player;
+        [SerializeField] private int damage;
         void Start()
         {
+            player = FindObjectOfType<PlayerHealth>();
             _lastWaypointSwitchTime = Time.time;
         }
         void Update()
@@ -32,8 +36,10 @@ namespace enemy
                 else
                 {
                     Destroy(gameObject);
-                    AudioSource audioSource = gameObject.GetComponent<AudioSource>();
-                    AudioSource.PlayClipAtPoint(audioSource.clip, transform.position);
+                    //AudioSource audioSource = gameObject.GetComponent<AudioSource>();
+                    //AudioSource.PlayClipAtPoint(audioSource.clip, transform.position);
+                    Debug.Log("наношу урон");
+                    player.TakeDamage(damage);
                 }
             }
         }

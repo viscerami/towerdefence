@@ -1,16 +1,18 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Money
 {
     public class CoinManager : MonoBehaviour
     {
-        [SerializeField] private int _totalCoins = 100; 
+
+        [SerializeField] public int totalCoins = 100; 
         [SerializeField] private CoinDisplay coinDisplay; 
         public bool SpendCoins(int amount)
         {
-            if (_totalCoins >= amount)
+            if (totalCoins >= amount)
             {
-                _totalCoins -= amount;
+                totalCoins -= amount;
                 UpdateCoinDisplay(); 
                 return true; 
             }
@@ -18,12 +20,13 @@ namespace Money
         }
         public void AddCoins(int amount)
         {
-            _totalCoins += amount;
+            totalCoins += amount;
             UpdateCoinDisplay(); 
+            Debug.Log("Вы получили золото! Текущая сумма: " + totalCoins);
         }
         public int GetCoins()
         {
-            return _totalCoins;
+            return totalCoins;
         }
         private void UpdateCoinDisplay()
         {

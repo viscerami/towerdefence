@@ -22,7 +22,7 @@ namespace Player
         {
             waveState.maxValue = flyEnemiesPerWave + groundEnemiesPerWave;
             waveState.value = waveState.maxValue;
-            StartCoroutine(SpawnWaves(flyEnemyPrefab, waypointsFly, flyEnemiesPerWave));
+            //StartCoroutine(SpawnWaves(flyEnemyPrefab, waypointsFly, flyEnemiesPerWave));
             StartCoroutine(SpawnWaves(groundEnemyPrefab, waypointsGround, groundEnemiesPerWave));
         }
         private IEnumerator SpawnWaves(GameObject enemyPref, GameObject[] waypoints, int enemyperwave)
@@ -42,7 +42,7 @@ namespace Player
         private void SpawnEnemy(GameObject pref, GameObject[] waypoints )
         {
             GameObject enemy = Instantiate(pref);
-            enemy.GetComponent<MoveEnemy>().waypoints = waypoints;
+            enemy.GetComponent<GroundEnemyAttacker>().Waypoints = waypoints;
         }
     }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2308421450123747329}
   - component: {fileID: 4514202901406719490}
   - component: {fileID: 5880008492569295203}
+  - component: {fileID: -8035583366424146117}
   m_Layer: 0
   m_Name: GoldTower
   m_TagString: Tower
@@ -130,3 +131,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.85914, y: 3.6786165}
   m_EdgeRadius: 0
+--- !u!114 &-8035583366424146117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7893599951585490332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61f21fa53598850419cafbfeeba9d115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinManager: {fileID: 0}

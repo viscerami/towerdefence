@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace enemy
 {
-    public class enemyHealth : AHealth
+    public class EnemyHealth : AHealth
     {
 
     }

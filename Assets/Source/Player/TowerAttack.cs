@@ -5,7 +5,7 @@ using Utils;
 
 namespace Player
 {
-    public class Tower : MonoBehaviour
+    public class TowerAttack : MonoBehaviour
     {
         [SerializeField] private int damage = 10; 
         [SerializeField] private float attackCooldown = 1f; 
@@ -13,7 +13,7 @@ namespace Player
         [SerializeField] private LayerMask enemy;
         void Update()
         {
-            //attackTimer -= Time.deltaTime; 
+            attackTimer -= Time.deltaTime; 
         }
         
         private void OnTriggerStay2D(Collider2D other)
@@ -22,7 +22,7 @@ namespace Player
             {
                 if (attackTimer <= 0)
                 {
-                    other.gameObject.GetComponent<enemyHealth>().TakeDamage(damage);
+                    other.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage);
                     attackTimer = attackCooldown;
                 }
             }

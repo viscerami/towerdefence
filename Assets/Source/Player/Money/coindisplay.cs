@@ -15,7 +15,7 @@ namespace Money
         }
         public void UpdateCoinDisplay()
         {
-            _coinText.text = "������: " + coinManager.GetCoins().ToString(); 
+            _coinText.text = "gold: " + coinManager.GetCoins(); 
         }
     }
 }

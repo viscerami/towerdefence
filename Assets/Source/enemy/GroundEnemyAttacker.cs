@@ -12,18 +12,14 @@ namespace enemy
         [SerializeField] private float attackTimer;// Интервал между атаками
         [SerializeField] private float attackCooldown;
         public bool _tryAttackTower;
-        private void Start()
+
+        public override void Update()
         {
-            player = FindObjectOfType<PlayerHealth>();
-            lastWaypointSwitchTime = Time.time;
-        }
-        private void Update()
-        {
-            Move();
+            base.Update();
             attackTimer -= Time.deltaTime; 
         }
 
-        public override void Move()
+        protected override void Move()
         {
             if (_tryAttackTower)
             {

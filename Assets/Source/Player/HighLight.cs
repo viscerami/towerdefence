@@ -1,40 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class HighLight : MonoBehaviour
+namespace Player
 {
-    private Color originalColor;
-    public Color highlightColor = Color.yellow; // Цвет подсветки
-
-    private void Start()
+    public class HighLight : MonoBehaviour
     {
-        // Сохраняем оригинальный цвет объекта
-        Renderer renderer = GetComponent<Renderer>();
-        if (renderer != null)
+        private Renderer _objectRenderer;
+        private Color _originalColor;
+        private Color _targetColor;
+
+        private void Start()
         {
-            originalColor = renderer.material.color;
+            _objectRenderer = GetComponent<Renderer>();
+            _originalColor = new Color(_objectRenderer.material.color.r, _objectRenderer.material.color.g, _objectRenderer.material.color.b, 0f);
+            _objectRenderer.material.color = _originalColor;
+            
+            _targetColor = new Color(_originalColor.r, _originalColor.g, _originalColor.b, 1f);
         }
-    }
-
-    private void OnMouseEnter()
-    {
-        // Меняем цвет на цвет подсветки при наведении мыши
-        ChangeColor(highlightColor);
-    }
-
-    private void OnMouseExit()
-    {
-        // Возвращаем оригинальный цвет, когда мышь выходит
-        ChangeColor(originalColor);
-    }
-
-    private void ChangeColor(Color newColor)
-    {
-        Renderer renderer = GetComponent<Renderer>();
-        if (renderer != null)
+        private void OnMouseEnter()
         {
-            renderer.material.color = newColor;
+            _objectRenderer.material.color = _targetColor;
+        }
+        private void OnMouseExit()
+        {
+            _objectRenderer.material.color = _originalColor;
         }
     }
 }

@@ -1,4 +1,5 @@
 using Player;
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -12,7 +13,19 @@ namespace enemy
         protected const float SPEED = 1.0f;
         [SerializeField] protected PlayerHealth player;
         [SerializeField] protected int damage;
-        public virtual void Move()
+
+        public virtual void Start()
+        {
+            player = FindObjectOfType<PlayerHealth>();
+            lastWaypointSwitchTime = Time.time;
+        }
+
+        public virtual void Update()
+        {
+            Move();
+        }
+
+        protected virtual void Move()
         {
             Vector3 startPosition = Waypoints[currentWaypoint].transform.position;
             Vector3 endPosition = Waypoints[currentWaypoint + 1].transform.position;

@@ -12,6 +12,7 @@ namespace enemy
         [SerializeField] private float attackTimer;// Интервал между атаками
         [SerializeField] private float attackCooldown;
         public bool _tryAttackTower;
+        private TowerHealth _currentTower;
 
         public override void Update()
         {
@@ -27,31 +28,42 @@ namespace enemy
             }
             base.Move();
         }
-
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (LayerMaskCheck.ContainsLayer(tower, other.gameObject.layer))
+            if (other.TryGetComponent<TowerHealth>(out TowerHealth tower))
             {
-                _tryAttackTower = false;
+                if (_currentTower == tower)
+                {
+                    _currentTower.OnTowerAttacked -= ChangeMood; 
+                    _currentTower = null; 
+                }
+            }
+        }
+        
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            if (_currentTower != null) 
+            {
+                if (attackTimer <= 0) 
+                {
+                    _currentTower.TakeDamage(damage);
+                    attackTimer = attackCooldown;
+                }
+            }
+        }
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.TryGetComponent<TowerHealth>(out TowerHealth tower))
+            {
+                ChangeMood();
+                _currentTower = tower; 
+                _currentTower.OnTowerAttacked += ChangeMood; 
             }
         }
 
-        private void OnTriggerStay2D(Collider2D other)
+        private void ChangeMood()
         {
-            if (LayerMaskCheck.ContainsLayer(tower, other.gameObject.layer))
-            {
-                _tryAttackTower = true;
-                if (other != null)
-                {
-                    other.gameObject.GetComponent<TowerHealth>();
-                    if (attackTimer <= 0)
-                    {
-                        other.gameObject.GetComponent<TowerHealth>().TakeDamage(damage);
-                        attackTimer = attackCooldown;
-                    }
-                }
-                
-            }
+            _tryAttackTower = !_tryAttackTower;
         }
     }
 }

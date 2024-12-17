@@ -22,7 +22,7 @@ namespace enemy
         {
             waveState.maxValue = flyEnemiesPerWave + groundEnemiesPerWave;
             waveState.value = waveState.maxValue;
-            StartCoroutine(SpawnWaves(flyEnemyPrefab, waypointsFly, flyEnemiesPerWave));
+                //StartCoroutine(SpawnWaves(flyEnemyPrefab, waypointsFly, flyEnemiesPerWave));
             StartCoroutine(SpawnWaves(groundEnemyPrefab, waypointsGround, groundEnemiesPerWave));
         }
 

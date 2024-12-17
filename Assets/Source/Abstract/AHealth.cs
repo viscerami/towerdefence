@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,7 +55,7 @@ public abstract class AHealth : MonoBehaviour
         _spriteRenderer.color = originalColor;
     }
 
-    private void Die()
+    protected virtual void Die()
     {
         Destroy(gameObject);
     }

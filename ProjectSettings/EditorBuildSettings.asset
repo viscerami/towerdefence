@@ -9,6 +9,15 @@ EditorBuildSettings:
     path: Assets/Presentation/Scenes/menu.unity
     guid: e292be8727ce4ab40969bacb98c8b791
   - enabled: 1
-    path: Assets/Presentation/Scenes/GameScene.unity
+    path: Assets/Presentation/Scenes/Tutor.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Presentation/Scenes/Lvl1.unity
+    guid: 676033d087af8f24384dce6251090821
+  - enabled: 1
+    path: Assets/Presentation/Scenes/Lvl2.unity
+    guid: 1c5fedff1654839408ca9ea3143f246c
+  - enabled: 1
+    path: Assets/Presentation/Scenes/Lvl3.unity
+    guid: ce41b9982e37d32478e394dc099fdc1e
   m_configObjects: {}

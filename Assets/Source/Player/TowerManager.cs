@@ -1,5 +1,7 @@
 using Money;
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Player
 {
@@ -8,7 +10,9 @@ namespace Player
         [SerializeField] private GameObject[] towerPrefabs; 
         [SerializeField] private int[] towerCosts;
         private GameObject _selectedTower; 
-        private CoinManager _coinManager; 
+        private CoinManager _coinManager;
+        private const int _indexTutor = 1;
+        public event Action OnTowerBuilt;
         void Start()
         {
             _coinManager = FindObjectOfType<CoinManager>();
@@ -22,6 +26,7 @@ namespace Player
         }
         void Update()
         {
+            
             if (Input.GetMouseButtonDown(0) && _selectedTower != null)
             {
                 Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -34,6 +39,10 @@ namespace Player
                     {
                         Instantiate(_selectedTower, hit.collider.transform.position, Quaternion.identity);
                         Destroy(hit.collider.gameObject); 
+                        if (SceneManager.GetActiveScene().buildIndex == _indexTutor) 
+                        {
+                            OnTowerBuilt?.Invoke();
+                        }
                         _selectedTower = null; 
                     }
                     else

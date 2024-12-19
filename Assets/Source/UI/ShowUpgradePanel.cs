@@ -1,27 +1,32 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 
 namespace UI
 {
-    public class ShowUpgradePanel : MonoBehaviour, IPointerEnterHandler
+    public class ShowUpgradePanel : MonoBehaviour
     {
         [SerializeField] private ActiveUpgrade activeUpgrade;
         private bool _upgradeActive = false;
         [SerializeField] private GameObject upgradePanel;
-    
+
         private void Start()
         {
             activeUpgrade.OnUpgradeActive += ChangeStatus;
             upgradePanel.SetActive(false); // Убедитесь, что панель изначально скрыта
         }
-    
-        public void OnPointerEnter(PointerEventData eventData)
+
+        private void Update()
         {
-            Debug.Log("зашёл");
-            if (_upgradeActive)
-            { 
+            if (_upgradeActive == true)
+            {
                 upgradePanel.SetActive(true);
+            }
+            else
+            {
+                Exit();
             }
         }
 
@@ -29,13 +34,10 @@ namespace UI
         {
             upgradePanel.SetActive(false);
         }
-        
+
         private void ChangeStatus()
         {
-            Debug.Log("поменял");
             _upgradeActive = !_upgradeActive;
-            Debug.Log(_upgradeActive);
         }
-        
     }
 }

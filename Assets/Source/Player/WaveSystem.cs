@@ -1,12 +1,16 @@
+using Scene;
+using System;
 using System.Collections;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace enemy
 {
     public class WaveSystem : MonoBehaviour
     {
-        [SerializeField] private Slider waveState;
+         public Slider waveState;
         [SerializeField] private GameObject[] waypointsGround;
         [SerializeField] private GameObject[] waypointsFly;
         [SerializeField] private GameObject groundEnemyPrefab;
@@ -15,12 +19,15 @@ namespace enemy
         [SerializeField] private int groundEnemiesPerWave;
         [SerializeField] private float timeBetweenWaves;
         [SerializeField] private int maxWaves;
+        private int _remaingEnemy;
         private readonly float _minTimeBetweenEnemies = 1f;
         private readonly float _maxTimeBetweenEnemies = 2f;
+        [SerializeField] private SceneChanger sceneChanger;
+        [SerializeField] private GameObject winPanel;
 
         void Start()
         {
-            waveState.maxValue = flyEnemiesPerWave + groundEnemiesPerWave;
+            waveState.maxValue = (flyEnemiesPerWave + groundEnemiesPerWave)*maxWaves;
             waveState.value = waveState.maxValue;
                 //StartCoroutine(SpawnWaves(flyEnemyPrefab, waypointsFly, flyEnemiesPerWave));
             StartCoroutine(SpawnWaves(groundEnemyPrefab, waypointsGround, groundEnemiesPerWave));
@@ -35,10 +42,12 @@ namespace enemy
                     SpawnEnemy(enemyPref, waypoints);
                     float randomTime = Random.Range(_minTimeBetweenEnemies, _maxTimeBetweenEnemies);
                     yield return new WaitForSeconds(randomTime);
-                    waveState.value--;
+                    Debug.Log("выпустил");
                 }
+                Debug.Log(waveState.maxValue);
+                Debug.Log("запуск новой волны");
                 yield return new WaitForSeconds(timeBetweenWaves);
-                waveState.value = waveState.maxValue;
+                Debug.Log("запустил ");
             }
         }
 
@@ -46,6 +55,14 @@ namespace enemy
         {
             GameObject enemy = Instantiate(pref);
             enemy.GetComponent<MoveEnemy>().Waypoints = waypoints;
+        }
+
+        private void Update()
+        {
+            if (waveState.value == 0)
+            {
+                winPanel.SetActive(true);
+            }   
         }
     }
 }

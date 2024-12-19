@@ -16,11 +16,11 @@ namespace Player
             
             _targetColor = new Color(_originalColor.r, _originalColor.g, _originalColor.b, 1f);
         }
-        private void OnMouseEnter()
+         void OnMouseEnter()
         {
             _objectRenderer.material.color = _targetColor;
         }
-        private void OnMouseExit()
+        void OnMouseExit()
         {
             _objectRenderer.material.color = _originalColor;
         }

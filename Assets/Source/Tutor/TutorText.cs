@@ -36,7 +36,7 @@ namespace Tutor
 
     void Update()
     {
-      if (Input.GetMouseButtonDown(0)&&_text!=2 &&_text!=6 &&_text!=7&&_text!=9 &&_text!=8)
+      if (Input.GetMouseButtonDown(0)&&_text!=2 &&_text!=6 &&_text!=7&&_text!=9 &&_text!=8 && _text != 10)
       {
         _text++;
       }

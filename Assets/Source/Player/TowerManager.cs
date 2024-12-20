@@ -1,5 +1,7 @@
 using Money;
 using System;
+using System.Collections.Generic;
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,8 +9,7 @@ namespace Player
 {
     public class TowerManager : MonoBehaviour
     {
-        [SerializeField] private GameObject[] towerPrefabs; 
-        [SerializeField] private int[] towerCosts;
+        [SerializeField] private List<TowerData> towerDatas;
         private GameObject _selectedTower; 
         private CoinManager _coinManager;
         private const int _indexTutor = 1;
@@ -17,11 +18,27 @@ namespace Player
         {
             _coinManager = FindObjectOfType<CoinManager>();
         }
-        public void SelectTower(int towerIndex)
+
+        public int GetCost(TowerType towerType)
         {
-            if (towerIndex >= 0 && towerIndex < towerPrefabs.Length)
+            foreach (var tower in towerDatas)
             {
-                _selectedTower = towerPrefabs[towerIndex];
+                if (tower.TowerType == towerType)
+                {
+                    return tower.Cost;
+                }
+            }
+            return 0;
+        }
+        public void SelectTower(TowerType towertype)
+        {
+            for (int i = 0; i < towerDatas.Count; i++)
+            {
+                if (towerDatas[i].TowerType == towertype)
+                {
+                    _selectedTower = towerDatas[i].TowerPrefab;   
+                    break;
+                }
             }
         }
         void Update()
@@ -34,22 +51,32 @@ namespace Player
             
                 if (hit.collider != null && hit.collider.CompareTag("TowerSlot"))
                 {
-                    int towerIndex = System.Array.IndexOf(towerPrefabs, _selectedTower);
-                    if (towerIndex >= 0 && _coinManager.SpendCoins(towerCosts[towerIndex]))
+                    int towerIndex = -1;
+                    for (int i = 0; i < towerDatas.Count; i++)
+                    {
+                        if (towerDatas[i].TowerPrefab == _selectedTower)
+                        {
+                            if (SceneManager.GetActiveScene().buildIndex == _indexTutor) 
+                            {
+                                OnTowerBuilt?.Invoke();
+                            }
+                            towerIndex = i;
+                            break;
+                        }
+                    }
+                    if (towerIndex >= 0 && _coinManager.SpendCoins(towerDatas[towerIndex].Cost))
                     {
                         Instantiate(_selectedTower, hit.collider.transform.position, Quaternion.identity);
+                        Debug.Log("поставил"+ _selectedTower.gameObject.name);
                         Destroy(hit.collider.gameObject); 
-                        if (SceneManager.GetActiveScene().buildIndex == _indexTutor) 
-                        {
-                            OnTowerBuilt?.Invoke();
-                        }
                         _selectedTower = null; 
                     }
                     else
                     {
-                        Debug.Log("�� ������� ����� ��� ������� ���� �����!");
+                        Debug.Log("!");
                     }
                 }
+               
             }
         }
     }

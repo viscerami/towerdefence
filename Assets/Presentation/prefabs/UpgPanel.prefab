@@ -359,6 +359,7 @@ MonoBehaviour:
   button: {fileID: 2248366407330083589}
   coinManager: {fileID: 0}
   requiredGold: 20
+  audioSourcePref: {fileID: 3349259005506440102, guid: 7ab65e189ea87fd41a6c310105fdc269, type: 3}
 --- !u!1 &6513499410612372966
 GameObject:
   m_ObjectHideFlags: 0

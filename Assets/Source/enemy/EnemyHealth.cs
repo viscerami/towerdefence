@@ -1,6 +1,7 @@
 using Money;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace enemy
 {
@@ -9,6 +10,7 @@ namespace enemy
         [SerializeField] private CoinManager _coin;
         [SerializeField] private int award;
         [SerializeField] private WaveSystem waveSystem;
+        [SerializeField] AudioSource audioSourcePref;
 
         public override void Start()
         {
@@ -19,9 +21,10 @@ namespace enemy
 
         protected override void Die()
         {
+            Instantiate(audioSourcePref);
             waveSystem.waveState.value--;
             _coin.AddCoins(award);
-            base.Die();
+            Destroy(gameObject);
         }
     }
 }

@@ -1,41 +1,59 @@
 using enemy;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Utils;
+using Random = UnityEngine.Random;
 
 namespace Player
 {
     public class TowerAttack : MonoBehaviour
     {
-        [SerializeField] private int damage = 10; 
+         public int Damage; 
         [SerializeField] private float attackCooldown = 1f; 
         [SerializeField] private float attackTimer = 0f; 
         [SerializeField] private LayerMask enemy;
         [SerializeField] private GameObject projectile;
         [SerializeField] private Transform firePoint;
+        private List<GameObject> _enemyHealths = new List<GameObject>();
+        private AudioSource _audioSource;
         
         void Start()
         {
-            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("tower"), LayerMask.NameToLayer("Slot"));
-        }
-        
-        private void Update()
-        {
-            attackTimer -= Time.deltaTime; 
+            _audioSource = GetComponent<AudioSource>();
         }
 
-        private void OnTriggerStay2D(Collider2D other)
+        private void Update()
+        {
+            attackTimer -= Time.deltaTime;
+
+            if (attackTimer <= 0)
+            {
+                if (_enemyHealths.Count > 0)
+                {
+                    _audioSource.Play();
+                    int random = Random.Range(0, _enemyHealths.Count);
+                    GameObject bullet = Instantiate(projectile, firePoint.position, firePoint.rotation);
+                    bullet.GetComponent<Projectile>().Initialize(_enemyHealths[random].transform.position); // Передаем цель в пулю
+                    _enemyHealths[random].GetComponent<EnemyHealth>().TakeDamage(Damage);
+                    attackTimer = attackCooldown;
+
+                }
+            }
+        }
+        
+        private void OnTriggerEnter2D(Collider2D other)
         {
             if (LayerMaskCheck.ContainsLayer(enemy, other.gameObject.layer))
             {
-                if (attackTimer <= 0)
-                {
-                    GameObject bullet = Instantiate(projectile, firePoint.position, firePoint.rotation);
-                    bullet.GetComponent<Projectile>().Initialize(other.transform.position); // Передаем цель в пулю
-                    other.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage);
-                    attackTimer = attackCooldown;
-                }
+              _enemyHealths.Add(other.gameObject);
+            }
+        }
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (LayerMaskCheck.ContainsLayer(enemy, other.gameObject.layer))
+            {
+                _enemyHealths.Remove(other.gameObject);
             }
         }
     }

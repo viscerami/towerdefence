@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9532853668093140}
   - component: {fileID: 2264403301212437716}
   - component: {fileID: -4246389993739571852}
+  - component: {fileID: 4468729890338571534}
   m_Layer: 6
   m_Name: AttackEnemyGround
   m_TagString: Enemy
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 7
   m_Sprite: {fileID: 21300000, guid: 73f680feb5e72d445bbb00e8869b8e8c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -117,7 +118,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.21876033, y: -0.12799427}
@@ -138,7 +139,9 @@ MonoBehaviour:
   maxHealth: 10
   currentHealth: 0
   _coin: {fileID: 0}
-  award: 20
+  award: 15
+  waveSystem: {fileID: 0}
+  audioSourcePref: {fileID: 4548049062458848261, guid: cba179958da02de45887f05336654ec4, type: 3}
 --- !u!114 &2264403301212437716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,13 +156,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Waypoints: []
   player: {fileID: 0}
-  damage: 5
+  waveSystem: {fileID: 0}
   tower:
     serializedVersion: 2
     m_Bits: 128
   attackTimer: 0
   attackCooldown: 1
   _tryAttackTower: 0
+  damageForTower: 5
 --- !u!50 &-4246389993739571852
 Rigidbody2D:
   serializedVersion: 4
@@ -187,3 +191,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &4468729890338571534
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3723865735906693467}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0b243fd2d2b868a4fb61c3740e8c4458, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

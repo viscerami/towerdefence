@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -8864330647545089487}
   - component: {fileID: 1808593255443303838}
   - component: {fileID: 2595437620875343939}
+  - component: {fileID: 299727248432961866}
   m_Layer: 8
   m_Name: FlyEnemy
   m_TagString: Untagged
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 7
   m_Sprite: {fileID: 21300000, guid: a5949799a1c827945b555172bb2d0b91, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -124,7 +125,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 16.12, y: 13.42}
+    oldSize: {x: 6.448, y: 5.368}
     newSize: {x: 16.12, y: 13.42}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -172,10 +173,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec214f42758147648bf7ae20a16b48c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 20
   currentHealth: 0
   _coin: {fileID: 0}
-  award: 0
+  award: 10
+  waveSystem: {fileID: 0}
+  audioSourcePref: {fileID: 5817633762218986384, guid: 99992adccd76be74d98d79397f36d9dc, type: 3}
 --- !u!114 &2595437620875343939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,4 +193,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Waypoints: []
   player: {fileID: 0}
-  damage: 20
+  waveSystem: {fileID: 0}
+--- !u!95 &299727248432961866
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6729332574172882022}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1c43dced0939a864ca4f25e593e5aeb9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

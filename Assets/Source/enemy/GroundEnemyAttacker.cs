@@ -13,7 +13,8 @@ namespace enemy
         [SerializeField] private float attackCooldown;
         public bool _tryAttackTower;
         private TowerHealth _currentTower;
-
+        [SerializeField] private int damageForTower;
+        
         public override void Update()
         {
             base.Update();
@@ -46,7 +47,7 @@ namespace enemy
             {
                 if (attackTimer <= 0) 
                 {
-                    _currentTower.TakeDamage(damage);
+                    _currentTower.TakeDamage(damageForTower);
                     attackTimer = attackCooldown;
                 }
             }

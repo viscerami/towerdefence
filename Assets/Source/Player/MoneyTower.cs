@@ -2,16 +2,19 @@ using Money;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player
 {
   public class MoneyTower : MonoBehaviour
   {
+    private AudioSource _audioSource;
     private CoinManager _coinManager;
-    private int _addCoin=5;
+    [SerializeField] private int addCoin;
 
     private void Start()
     {
+      _audioSource = GetComponent<AudioSource>();
       _coinManager = FindObjectOfType<CoinManager>();
       StartCoroutine(DelayedStart());
     }
@@ -20,10 +23,9 @@ namespace Player
     {
       while (true)
       {
-        Debug.Log("начал"); 
-        _coinManager.AddCoins(_addCoin);
-        yield return new WaitForSeconds(2f);
-        Debug.Log("закончил"); 
+        _audioSource.Play();
+        _coinManager.AddCoins(addCoin);
+        yield return new WaitForSeconds(5);
       }
     }
     private IEnumerator DelayedStart()

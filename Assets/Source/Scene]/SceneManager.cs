@@ -7,6 +7,7 @@ namespace Scene
 {
     public class SceneChanger : MonoBehaviour
     {
+        //переделай ночью 
         [SerializeField] private GameObject pausePanel;
         private bool _paused = false;
         [SerializeField] private GameObject levelPanel;
@@ -24,6 +25,23 @@ namespace Scene
             }
         }
 
+        public void Clear()
+        {
+            PlayerPrefs.SetInt("Level2Unlocked", 0);
+            PlayerPrefs.SetInt("HasCompletedTutorial", 0);
+            PlayerPrefs.Save();
+        }
+        
+        public void Lose()
+        {
+            MainMenu();
+        }
+        public void Level1Finish()
+        {
+            PlayerPrefs.SetInt("Level2Unlocked", 1); 
+            PlayerPrefs.Save(); 
+            MainMenu();
+        }
         public void LevelSetUp()
         {
             if (PlayerPrefs.GetInt("HasCompletedTutorial", 0)==0)

@@ -57,7 +57,7 @@ public abstract class AHealth : MonoBehaviour
 
     protected virtual void Die()
     {
-        Destroy(gameObject);
+        
     }
 }
 

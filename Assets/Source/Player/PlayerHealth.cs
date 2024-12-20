@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ namespace Player
   {
     [SerializeField] private Slider playerHealth;
 
+    public event Action OnDead;
     public override void Start()
     {
       base.Start();
@@ -19,6 +21,11 @@ namespace Player
     {
       base.TakeDamage(damage);
       playerHealth.value = currentHealth;
+    }
+
+    protected override void Die()
+    {
+      OnDead?.Invoke();
     }
   }
 }
